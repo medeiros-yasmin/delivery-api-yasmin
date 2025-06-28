@@ -16,8 +16,8 @@ public class ClienteService {
     
     @Autowired
     private ClienteRepository clienteRepository;
-
-    public Cliente cadastrar(Cliente cliente) {
+    
+    public Cliente cadastrar( Cliente cliente) {
         // Validar email único
         if (clienteRepository.existsByEmail(cliente.getEmail())) {
             throw new IllegalArgumentException("Email já cadastrado: " + cliente.getEmail());
@@ -35,6 +35,16 @@ public class ClienteService {
     @Transactional(readOnly = true)
     public Optional<Cliente> buscarPorId(Long id) {
         return clienteRepository.findById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Cliente> buscarPorEmail(String email) {
+        return clienteRepository.findByEmail(email);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<List<Cliente>> buscarPorNome(String nome) {
+        return clienteRepository.findByNome(nome);
     }
 
     @Transactional(readOnly = true)

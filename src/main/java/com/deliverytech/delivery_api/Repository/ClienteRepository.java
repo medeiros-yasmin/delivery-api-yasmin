@@ -16,6 +16,9 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
      // Buscar cliente por email (método derivado)
     Optional<Cliente> findByEmail(String email);
 
+    @Query(value = "SELECT * FROM clientes WHERE nome LIKE %:nome%", nativeQuery = true)
+    Optional<List<Cliente>> findByNome(String nome);
+
     // Verificar se email já existe
     boolean existsByEmail(String email);
 
